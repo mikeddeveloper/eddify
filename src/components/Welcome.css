@@ -1,0 +1,91 @@
+/* Fullscreen background */
+.welcome-page {
+  height: 100vh;
+  background: linear-gradient(135deg, #667eea, #764ba2, #6b8dd6);
+  background-size: 400% 400%;
+  animation: gradientMove 15s ease infinite;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 1rem;
+}
+
+/* Animated gradient */
+@keyframes gradientMove {
+  0% { background-position: 0% 50%; }
+  50% { background-position: 100% 50%; }
+  100% { background-position: 0% 50%; }
+}
+
+/* Card container */
+.welcome-card {
+  backdrop-filter: blur(20px);
+  background: rgba(255, 255, 255, 0.15);
+  border-radius: 24px;
+  padding: 3rem 2rem;
+  max-width: 480px;
+  text-align: center;
+  color: #fff;
+  box-shadow: 0 8px 30px rgba(0,0,0,0.2);
+}
+
+/* Icon styling */
+.icon-wrapper {
+  margin-bottom: 1rem;
+}
+.sparkle-icon {
+  color: #ffda79;
+  animation: pulse 2s infinite;
+}
+
+@keyframes pulse {
+  0%, 100% { transform: scale(1); opacity: 1; }
+  50% { transform: scale(1.2); opacity: 0.7; }
+}
+
+/* Text */
+.welcome-text {
+  font-size: 2.5rem;
+  font-weight: 700;
+  margin: 0.5rem 0 1rem;
+}
+.welcome-text .ediffy {
+  color: #ffda79;
+}
+
+.tagline {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  justify-content: center;
+  font-size: 1rem;
+  opacity: 0.9;
+  margin-bottom: 2rem;
+}
+
+/* Button */
+.start-btn {
+  background: #ffda79;
+  color: #333;
+  border: none;
+  padding: 0.9rem 1.8rem;
+  border-radius: 50px;
+  font-size: 1rem;
+  cursor: pointer;
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  transition: all 0.3s ease;
+}
+.start-btn:hover {
+  transform: translateY(-3px) scale(1.05);
+}
+
+/* Dark mode */
+body.dark .welcome-card {
+  background: rgba(0,0,0,0.5);
+  color: #eaeaea;
+}
+body.dark .welcome-text .ediffy {
+  color: #7ef9ff;
+}

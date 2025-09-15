@@ -1,0 +1,158 @@
+/* 🌈 FORM PAGE STYLING */
+.form-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-height: 100vh;
+
+  /* Soft gradient background */
+  background: linear-gradient(135deg, #a18cd1 0%, #fbc2eb 100%);
+  padding: 20px;
+}
+
+.form-card {
+  backdrop-filter: blur(12px);
+  background: rgba(255, 255, 255, 0.15);
+  border: 1px solid rgba(255, 255, 255, 0.25);
+
+  border-radius: 24px;
+  padding: 40px 30px;
+  max-width: 420px;
+  width: 100%;
+
+  text-align: center;
+  color: #fff;
+
+  box-shadow: 0 10px 30px rgba(0,0,0,0.2);
+  animation: fadeIn 1s ease;
+  transition: transform 0.3s;
+}
+
+.form-card:hover {
+  transform: translateY(-5px);
+}
+
+.form-card h2,
+.form-card h3 {
+  margin-bottom: 15px;
+  font-weight: 600;
+  letter-spacing: 0.5px;
+}
+
+.form-card input {
+  width: 100%;
+  padding: 14px 16px;
+  border-radius: 14px;
+  border: none;
+  outline: none;
+
+  margin-bottom: 20px;
+  font-size: 1rem;
+  background: rgba(255, 255, 255, 0.2);
+  color: #fff;
+
+  transition: background 0.3s, box-shadow 0.3s;
+}
+
+.form-card input::placeholder {
+  color: #f0f0f0;
+}
+
+.form-card input:focus {
+  background: rgba(255, 255, 255, 0.3);
+  box-shadow: 0 0 0 2px rgba(255, 255, 255, 0.4);
+}
+
+.form-card button {
+  background: #ff6ec4;
+  background: linear-gradient(45deg, #ff6ec4, #7873f5);
+  color: white;
+  border: none;
+
+  padding: 14px 24px;
+  border-radius: 14px;
+  font-size: 1.05rem;
+  cursor: pointer;
+
+  transition: opacity 0.3s, transform 0.3s;
+}
+
+.form-card button:hover {
+  opacity: 0.9;
+  transform: scale(1.03);
+}
+
+.form-icon {
+  font-size: 3rem;
+  color: #fff;
+  margin-bottom: 15px;
+  animation: pulse 2s infinite;
+}
+
+@keyframes pulse {
+  0% { transform: scale(1); opacity: 1; }
+  50% { transform: scale(1.1); opacity: 0.8; }
+  100% { transform: scale(1); opacity: 1; }
+}
+
+@keyframes fadeIn {
+  from { opacity: 0; transform: translateY(10px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+.mood-section {
+  text-align: left;
+  margin: 20px 0;
+}
+
+.mood-section h3 {
+  margin-bottom: 10px;
+  font-size: 1.1rem;
+}
+
+.mood-section label {
+  display: block;
+  margin: 8px 0;
+  font-size: 1rem;
+  cursor: pointer;
+}
+
+.mood-section input[type="checkbox"] {
+  margin-right: 10px;
+  accent-color: #ff6ec4;
+  transform: scale(1.2);
+}
+.mood-pills {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+  margin-top: 15px;
+}
+
+.pill {
+  position: relative;
+  display: inline-block;
+  padding: 10px 18px;
+  border-radius: 25px;
+  background: #f2f2f2;
+  color: #555;
+  font-size: 0.95rem;
+  font-weight: 500;
+  cursor: pointer;
+  user-select: none;
+  transition: all 0.3s ease;
+}
+
+.pill:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+}
+
+.pill.active {
+  background: linear-gradient(135deg, #ff6ec4, #7873f5);
+  color: #fff;
+  box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+}
+
+.pill input[type="checkbox"] {
+  display: none;
+}
