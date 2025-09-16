@@ -2,9 +2,9 @@ import React, { useEffect, useState } from "react";
 import { useLocation } from "react-router-dom";
 import AOS from "aos";
 import "aos/dist/aos.css";
-import OpenAI from "openai";
 import "./Affirmation.css";
 import { FaWhatsapp } from "react-icons/fa";
+import affirm from "../data/affirm.json"; // import JSON
 
 const Affirmation = () => {
   const location = useLocation();
@@ -16,35 +16,42 @@ const Affirmation = () => {
     AOS.init({ duration: 1000 });
   }, []);
 
-  const openai = new OpenAI({
-    apiKey: import.meta.env.VITE_OPENAI_API_KEY,
-    dangerouslyAllowBrowser: true, // allow frontend calls
-  });
-
-  const generateAffirmation = async () => {
+  const getRandomAffirmation = () => {
     setLoading(true);
-    try {
-      const moodText = moods.length ? moods.join(", ") : "mixed emotions";
 
-      const prompt = `Create a short, uplifting Christian affirmation for someone named ${name}, who is feeling ${moodText}. 
-      Include 1-2 Bible verse references (just the references, like John 3:16) and end with “— eddiffy”.`;
+    // Case-insensitive match for selected moods
+    let filtered = affirm.filter(a =>
+      moods.some(m => m.trim().toLowerCase() === a.mood.trim().toLowerCase())
+    );
 
-      const res = await openai.chat.completions.create({
-        model: "gpt-4o-mini",
-        messages: [{ role: "user", content: prompt }],
-      });
+    // Fallback if no mood matches
+    if (filtered.length === 0) filtered = affirm;
 
-      const text = res.choices[0].message.content;
-      setAffirmation(text);
-    } catch (err) {
-      console.error(err);
-      setAffirmation("Oops, something went wrong. Please try again.");
-    } finally {
+    // Pick a random mood from the filtered list
+    const randomMood = filtered[Math.floor(Math.random() * filtered.length)];
+
+    // Safe check for affirm array
+    const affirmList = randomMood?.affirm;
+    if (!affirmList || affirmList.length === 0) {
+      setAffirmation("No affirmations available.");
       setLoading(false);
+      return;
     }
+
+    // Pick a random affirmation from the selected mood
+    let randomAffirmation = affirmList[Math.floor(Math.random() * affirmList.length)];
+
+    // Add the person's name at the start of the affirmation
+    if (name) {
+      randomAffirmation = `${name}, ${randomAffirmation}`;
+    }
+
+    setAffirmation(randomAffirmation);
+    setLoading(false);
   };
 
   const shareOnWhatsApp = () => {
+    if (!affirmation) return;
     const text = encodeURIComponent(affirmation);
     window.open(`https://wa.me/?text=${text}`, "_blank");
   };
@@ -60,7 +67,7 @@ const Affirmation = () => {
 
       <button
         className="generate-btn"
-        onClick={generateAffirmation}
+        onClick={getRandomAffirmation}
         disabled={loading}
       >
         {loading ? "Generating..." : "Generate Your Affirmation"}
@@ -68,7 +75,7 @@ const Affirmation = () => {
 
       {affirmation && (
         <div className="affirmation-box" data-aos="zoom-in">
-          <p>{affirmation}</p>
+          <p>{affirmation}</p> {/* Display the personalized affirmation */}
           <button className="share-btn" onClick={shareOnWhatsApp}>
             Share on WhatsApp
           </button>
